@@ -13,7 +13,9 @@ export function fetchWeather(city,) {
     //       however, this promise is being sent to payload which is storing the data:
     const request = axios.get(url);
 
-    console.log('Request:', request);
+    // if you want to inspect the xhr, uncomment here: 
+    // console.log('Request:', request);
+    
     // always return an action:
     return{
         type: FETCH_WEATHER,
