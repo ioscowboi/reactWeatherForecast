@@ -9,11 +9,18 @@ export const FETCH_WEATHER = 'FETCH_WEATHER';
 export function fetchWeather(city,) {
     const url = `${ROOT_URL}&q=${city},us`;
     // return your promise from axios: 
+    // note: promises don't actually return any data
+    //       however, this promise is being sent to payload which is storing the data:
     const request = axios.get(url);
+
+    console.log('Request:', request);
     // always return an action:
     return{
         type: FETCH_WEATHER,
         // optional property with additional data:
-        payload: request
+        // since we're passing a promise to payload, redux-promise takes over during the request,
+        //      and returns a new payload with the ajax response object:
+        payload: request,
+        module: request
     };
 }
