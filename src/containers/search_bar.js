@@ -23,11 +23,18 @@ export default class SearchBar extends Component {
         // set state when text is entered: 
         this.setState({term: event.target.value});
     }
+    // Prevent the normal browser submission from occurring: 
+    onFormSubmit(event){
+        event.preventDefault();
+
+        // fetch new weather data:
+    }
     render (){
         return (
-            <form className="input-group">
-                {/* CALLBACK */}
+            <form onSubmit={this.onFormSubmit} className="input-group">
+                {/* CALLBACK: */}
                 {/*     onChange */}
+                
                 <input 
                     placeholder="Get a five-day forecast in your favorite cities"
                     className="form-control"
@@ -36,7 +43,7 @@ export default class SearchBar extends Component {
                 />
                 <span className="input-group-btn">
                     <button type="submit" className="btn btn-secondary">Submit</button>
-                    </span>
+                </span>
             </form>
         );
     }
