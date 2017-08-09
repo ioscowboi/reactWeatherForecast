@@ -2,6 +2,14 @@
 
 import React, { Component } from 'react';
 
+// { We need to connect the api request to react-redux: 
+    // we also need to bind fetchWeater (action creator) as a property to the container:
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+// action creator: 
+import { fetchWeather } from '../actions/index';
+// }
+
 export default class SearchBar extends Component {
     // establish/initialize state: 
     constructor(props){
@@ -28,6 +36,7 @@ export default class SearchBar extends Component {
         event.preventDefault();
 
         // fetch new weather data:
+
     }
     render (){
         return (
