@@ -13,6 +13,7 @@ export function fetchWeather(city,) {
     // always return an action:
     return{
         type: FETCH_WEATHER,
+        // optional property with additional data:
         payload: request
     };
 }

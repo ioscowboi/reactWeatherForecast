@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import { fetchWeather } from '../actions/index';
 // }
 
-export default class SearchBar extends Component {
+export class SearchBar extends Component {
     // establish/initialize state: 
     constructor(props){
         super(props);
@@ -22,6 +22,9 @@ export default class SearchBar extends Component {
         //  using below in the constructor, basically creates a bound instance of the function so that 'this' is within scope
         //      ALWAYS use this binding approach when you're passing a callback with a reference to 'this':
         this.onInputChange = this.onInputChange.bind(this);
+        //      ALWAYS use this binding approach when you're passing a callback with a reference to 'this', 
+        //          otherwise, the method won't have the correct reference to this: 
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
 
     // what happens when the form input is altered? 
@@ -36,7 +39,12 @@ export default class SearchBar extends Component {
         event.preventDefault();
 
         // fetch new weather data:
-
+        //  call the action creator: 
+        //  properties of fetchWeather
+        this.props.fetchWeather(this.state.term);
+        // clear search input:
+        //  I believe "{}" denotes that this is some sort of object:
+        this.setState({term: ''});
     }
     render (){
         return (
@@ -57,3 +65,13 @@ export default class SearchBar extends Component {
         );
     }
 }
+
+// connect action creator to the SearchBar container:
+function mapDispatchToProps(dispatch) {
+    // causes the action creator action flows to middleware and reducers
+    return bindActionCreators({ fetchWeather }, dispatch);
+}
+// note: we are not mapping the state to props
+//  when we pass in a null, we are just ensuring that redux doesnt maintain state
+//  thus, we pass in searchbar as the second parameter, leaving the first blank (as a placeholder/don't maintain state):
+export default connect(null, mapDispatchToProps)(SearchBar);
